@@ -1,0 +1,35 @@
+Instruções de Inicialização (Dev-C++ / Windows)
+
+1. Abra o Dev-C++
+
+Inicie o programa normalmente pelo atalho ou menu iniciar.
+
+2. Crie um novo projeto
+
+Vá em File -> New -> Project.
+
+Escolha Console Application.
+Clique em C Project.
+Dê um nome ao projeto e selecione uma pasta onde ficará salvo.
+
+3. Apague o arquivo main.c criado automaticamente
+
+O Dev-C++ cria um main.c vazio.
+Clique nele com o botão direito → Delete (ou apenas esvazie o conteúdo).
+
+4. Importe os arquivos recebidos (.c e .h)
+
+Vá em Project -> Add to project.
+
+Selecione todos os arquivos enviados:
+
+main.c, cadastro.c, operacoes.c, consulta.c, contas.c, contas.h e demais headers
+
+Confirme com Open.
+
+5. Compile e Execute
+
+Pressione F11 ou clique em Compile & Run.
+
+6. Pronto!
+Se todos os arquivos estiverem no mesmo projeto, o sistema bancário será compilado normalmente e abrirá no terminal.
