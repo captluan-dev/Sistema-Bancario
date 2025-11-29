@@ -19,9 +19,20 @@ int depositar(Conta contas[], int qtd, int numero, double valor) {
     
     int idx = encontrar_conta_por_numero(contas, qtd, numero);
     
-    if (idx == -1) { printf("Erro: conta não encontrada.\n"); return 0; }
-    if (contas[idx].status == ENCERRADA) { printf("Erro: conta encerrada.\n"); return 0; }
-    if (valor <= 0) { printf("Erro: valor deve ser positivo.\n"); return 0; }
+    if (idx == -1) {
+		printf("Erro: conta não encontrada.\n");
+		return 0;
+		}
+		
+    if (contas[idx].status == ENCERRADA) {
+		printf("Erro: conta encerrada.\n");
+		return 0;
+		}
+		
+    if (valor <= 0) {
+		printf("Erro: valor deve ser positivo.\n");
+		return 0;
+		}
     
     contas[idx].saldo += valor;
     
@@ -34,10 +45,25 @@ int sacar(Conta contas[], int qtd, int numero, double valor) {
     
     int idx = encontrar_conta_por_numero(contas, qtd, numero);
     
-    if (idx == -1) { printf("Erro: conta não encontrada.\n"); return 0; }
-    if (contas[idx].status == ENCERRADA) { printf("Erro: conta encerrada.\n"); return 0; }
-    if (valor <= 0) { printf("Erro: valor deve ser positivo.\n"); return 0; }
-    if (valor > contas[idx].saldo) { printf("Erro: saldo insuficiente.\n"); return 0; }
+    if (idx == -1) {
+		printf("Erro: conta não encontrada.\n");
+		return 0;
+		}
+		
+    if (contas[idx].status == ENCERRADA) {
+		printf("Erro: conta encerrada.\n");
+		return 0;
+		}
+		
+    if (valor <= 0) {
+		printf("Erro: valor deve ser positivo.\n");
+		return 0;
+		}
+		
+    if (valor > contas[idx].saldo) {
+		printf("Erro: saldo insuficiente.\n");
+		return 0;
+		}
     
     contas[idx].saldo -= valor;
     
@@ -51,10 +77,45 @@ int transferir(Conta contas[], int qtd, int origem, int destino, double valor) {
     int idxOrigem = encontrar_conta_por_numero(contas, qtd, origem);
     int idxDestino = encontrar_conta_por_numero(contas, qtd, destino);
     
-    if (idxOrigem == -1 || idxDestino == -1) { printf("Erro: conta não encontrada.\n"); return 0; }
-    if (contas[idxOrigem].status == ENCERRADA || contas[idxDestino].status == ENCERRADA) { printf("Erro: uma das contas encerrada.\n"); return 0; }
-    if (valor <= 0) { printf("Erro: valor inválido.\n"); return 0; }
-    if (valor > contas[idxOrigem].saldo) { printf("Erro: saldo insuficiente.\n"); return 0; }
+    if (idxOrigem == -1 && idxDestino == -1) {
+    	printf("Erro: Conta de origem e destino não encontradas.\n");
+    	return 0;
+	}
+    
+    if (idxOrigem == -1) {
+		printf("Erro: Conta de origem não encontrada.\n");
+		return 0;
+		}
+		
+	if (idxDestino == -1) {
+		printf("Erro: Conta de destino não encontrada.\n");
+		return 0;
+	}
+	
+	if (contas[idxOrigem].status == ENCERRADA && contas[idxDestino].status == ENCERRADA) {
+		printf("Erro: Conta de origem e destino estão encerradas.\n");
+		return 0;
+	}
+    
+    if (contas[idxOrigem].status == ENCERRADA) {
+		printf("Erro: Conta de origem está encerrada.\n");
+		return 0;
+		}
+		
+	if (contas[idxDestino].status == ENCERRADA) {
+		printf("Erro: Conta de destino está encerrada.\n");
+		return 0;
+	}
+		
+    if (valor <= 0) {
+		printf("Erro: valor inválido.\n");
+		return 0;
+		}
+		
+    if (valor > contas[idxOrigem].saldo) {
+		printf("Erro: saldo insuficiente.\n");
+		return 0;
+		}
     
     contas[idxOrigem].saldo -= valor;
     contas[idxDestino].saldo += valor;
