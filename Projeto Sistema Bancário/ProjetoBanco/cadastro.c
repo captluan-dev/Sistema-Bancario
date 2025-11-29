@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 
 #include "cadastro.h"
@@ -8,11 +9,14 @@ int abrir_conta(Conta contas[], int *qtd, int numero, char nome[], char cpf[], c
     
     int i;
     
-    if (*qtd >= MAX_CONTAS)
+    if (*qtd >= MAX_CONTAS) {
+		printf("O limite de abertura de contas já foi atingido! Não foi possível continuar com a abertura da conta!\n");
         return 0;
+    }
 
     for (i = 0; i < *qtd; i++) {
         if (strcmp(contas[i].cpf, cpf) == 0) {
+        	printf("Falha ao criar conta. Já existe uma conta ATIVA com esse CPF.\n");
             return 0;
         }
     }

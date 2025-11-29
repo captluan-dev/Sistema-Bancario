@@ -92,8 +92,6 @@ int proximo_numero = 6;
             	
                 printf("Conta criada com sucesso!\n");
                 proximo_numero++;
-            } else {
-                printf("Falha ao criar conta. Já existe uma conta ATIVA com esse CPF.\n");
             }
             break;
         }
