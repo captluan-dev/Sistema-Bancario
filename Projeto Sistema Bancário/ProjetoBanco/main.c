@@ -34,7 +34,7 @@ int menu() {
     printf("7. Listar contas\n");
     printf("8. Encerrar conta\n");
     printf("9. Sair\n");
-    printf("-----------------------------------------\n");
+    printf("----------------------------------------\n");
     printf("Escolha: ");
 
     scanf("%d", &opcao);
@@ -71,6 +71,10 @@ int proximo_numero = 6;
 
         case 1: { // ABRIR CONTA
             char nome[100], cpf[20], agencia[20], telefone[20];
+            
+            system("cls||clear");
+            
+            printf("\n============= ABRIR CONTA ==============\n");
 
             printf("Nome do cliente: ");
             fgets(nome, 100, stdin);
@@ -92,6 +96,8 @@ int proximo_numero = 6;
             	
                 printf("Conta criada com sucesso!\n");
                 proximo_numero++;
+                
+                printf("\n----------------------------------------\n");
             }
             break;
         }
