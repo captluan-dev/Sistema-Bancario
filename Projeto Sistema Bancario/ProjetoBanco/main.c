@@ -1,13 +1,14 @@
 /*
-Projeto: Sistema BancÔøΩrio
+Projeto: Sistema Banc√°rio
 Arquivo: main.c
-DescriÁ„o:
+Descri√ß√£o:
     Arquivo principal do sistema. Exibe o menu interativo,
-    recebe entradas e chama funÁıes implementadas em:
+    recebe entradas e chama fun√ß√µes implementadas em:
     cadastro.c, operacoes.c e consulta.c.
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 
@@ -19,18 +20,18 @@ DescriÁ„o:
 
 
 // ------------------------------
-// FunÁıes do Menu
+// Fun√ß√µes do Menu
 // ------------------------------
 int menu() {
     int opcao;
 
-    printf("\n=========== SISTEMA BANC¡RIO ===========\n");
+    printf("\n=========== SISTEMA BANC√ÅRIO ===========\n");
     printf("1. Abrir conta\n");
     printf("2. Depositar\n");
     printf("3. Sacar\n");
     printf("4. Transferir\n");
     printf("5. Consultar saldo e dados\n");
-    printf("6. Atualizar telefone e agÍncia\n");
+    printf("6. Atualizar telefone e ag√™ncia\n");
     printf("7. Listar contas\n");
     printf("8. Encerrar conta\n");
     printf("9. Sair\n");
@@ -44,11 +45,11 @@ int menu() {
 }
 
 // ------------------------------
-// FunÁ„o Principal
+// Fun√ß√£o Principal
 // ------------------------------
 int main() {
     
-    setlocale(LC_ALL, "portuguese");
+    setlocale(LC_ALL, "Portuguese_Brazil");
 
     // Contas de exemplo carregadas no sistema
 Conta contas[MAX_CONTAS] = {
@@ -63,6 +64,7 @@ int qtdContas = 5;
 int proximo_numero = 6;
 
     int op;
+    int i;
 
     do {
         op = menu();
@@ -84,7 +86,7 @@ int proximo_numero = 6;
             fgets(cpf, 20, stdin);
             cpf[strcspn(cpf, "\n")] = 0;
 
-            printf("AgÍncia: ");
+            printf("Ag√™ncia: ");
             fgets(agencia, 20, stdin);
             agencia[strcspn(agencia, "\n")] = 0;
 
@@ -94,33 +96,61 @@ int proximo_numero = 6;
 
             if (abrir_conta(contas, &qtdContas, proximo_numero, nome, cpf, agencia, telefone)) {
             	
+                system("cls||clear");
+
+                printf("----------------------------------------\n");
                 printf("Conta criada com sucesso!\n");
+                printf("----------------------------------------");
+
+                mostrar_dados(&contas[qtdContas - 1]);
                 proximo_numero++;
-                
-                printf("\n----------------------------------------\n");
+
+                printf("Pressione ENTER para continuar...");
+                getchar();
+
+                system("cls||clear");
             }
             break;
         }
 
         case 2: { // DEPOSITAR
+
             int numero;
             double valor;
-            printf("N˙mero da conta: ");
+
+            system("cls||clear");
+
+            printf("============= DEP√ìSITO ==============\n");
+
+            printf("Informe o n√∫mero da conta: ");
             scanf("%d", &numero);
-            printf("Valor do depÛsito: ");
+            printf("Informe o valor do dep√≥sito: ");
             scanf("%lf", &valor);
 
-            if (depositar(contas, qtdContas, numero, valor))
-                printf("DepÛsito realizado!\n");
-            else
-                printf("Erro ao depositar.\n");
+            if (!depositar(contas, qtdContas, numero, valor))
+                printf("Falha ao depositar.\n");
+
+            printf("=====================================\n");
+
+            printf("Pressione ENTER para continuar...");
+            getchar();
+            getchar();
+
+            system("cls||clear");
+
             break;
         }
 
         case 3: { // SACAR
+
             int numero;
             double valor;
-            printf("N˙mero da conta: ");
+
+            system("cls||clear");
+
+            printf("============== SACAR ===============\n");
+
+            printf("N√∫mero da conta: ");
             scanf("%d", &numero);
             printf("Valor do saque: ");
             scanf("%lf", &valor);
@@ -128,53 +158,58 @@ int proximo_numero = 6;
             if (sacar(contas, qtdContas, numero, valor))
                 printf("Saque realizado!\n");
             else
-                printf("Erro ao sacar.\n");
+                printf("Falha ao sacar.\n");
+
+            printf("=====================================\n");
+
+            printf("Pressione ENTER para continuar...");
+            getchar();
+            getchar();
+
+            system("cls||clear");
+
             break;
         }
 
         case 4: { // TRANSFERIR
+
             int origem, destino;
             double valor;
+
+            system("cls||clear");
+
+            printf("============== TRANSFER√äNCIA ===============\n");
 
             printf("Conta de origem: ");
             scanf("%d", &origem);
             printf("Conta de destino: ");
             scanf("%d", &destino);
-            printf("Valor da transferÍncia: ");
+            printf("Valor da transfer√™ncia: ");
             scanf("%lf", &valor);
 
             if (transferir(contas, qtdContas, origem, destino, valor))
-                printf("TransferÍncia realizada!\n");
+                printf("Transfer√™ncia realizada!\n");
             else
-                printf("Falha na transferÍncia.\n");
+                printf("Falha na transfer√™ncia.\n");
+
+            printf("============================================\n");
+            
+            esperar_tecla();
+
+            system("cls||clear");
+            
             break;
         }
 
         case 5: { // CONSULTAR
+
 			menu_consulta(contas, qtdContas);
 			break;
         }
 
         case 6: { // ATUALIZAR CONTATOS
-            int numero;
-            char telefone[20], agencia[20];
 
-            printf("N˙mero da conta: ");
-            scanf("%d", &numero);
-            getchar();
-
-            printf("Novo telefone: ");
-            fgets(telefone, 20, stdin);
-            telefone[strcspn(telefone, "\n")] = 0;
-
-            printf("Nova agÍncia: ");
-            fgets(agencia, 20, stdin);
-            agencia[strcspn(agencia, "\n")] = 0;
-
-            if (atualizar_contato(contas, qtdContas, numero, telefone, agencia))
-                printf("Dados atualizados!\n");
-            else
-                printf("Falha ao atualizar.\n");
+            menu_atualizar_cadastro(contas, qtdContas);
             break;
         }
 
@@ -193,7 +228,7 @@ int proximo_numero = 6;
             break;
 
         default:
-            printf("OpÁ„o inv·lida!\n");
+            printf("Op√ß√£o inv√°lida!\n");
         }
 
     } while (op != 9);

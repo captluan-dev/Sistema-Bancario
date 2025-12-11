@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "contas.h"
@@ -20,23 +21,24 @@ int depositar(Conta contas[], int qtd, int numero, double valor) {
     int idx = encontrar_conta_por_numero(contas, qtd, numero);
     
     if (idx == -1) {
-		printf("Erro: conta n„o encontrada.\n");
+		printf("\nErro! Conta de destino n√£o encontrada. ");
 		return 0;
 		}
 		
     if (contas[idx].status == ENCERRADA) {
-		printf("Erro: conta encerrada.\n");
+		printf("\nErro! Conta de destino encerrada. ");
 		return 0;
 		}
 		
     if (valor <= 0) {
-		printf("Erro: valor deve ser positivo.\n");
+		printf("\nErro! Valor inv√°lido. ");
 		return 0;
 		}
     
     contas[idx].saldo += valor;
     
-    printf("DepÛsito realizado! Novo saldo: %.2f\n", contas[idx].saldo);
+    printf("\nDep√≥sito realizado!\n");
+	printf("Novo saldo: %.2f\n", contas[idx].saldo);
     
     return 1;
 }
@@ -46,28 +48,28 @@ int sacar(Conta contas[], int qtd, int numero, double valor) {
     int idx = encontrar_conta_por_numero(contas, qtd, numero);
     
     if (idx == -1) {
-		printf("Erro: conta n„o encontrada.\n");
+		printf("\nErro! Conta n√£o encontrada.\n");
 		return 0;
 		}
 		
     if (contas[idx].status == ENCERRADA) {
-		printf("Erro: conta encerrada.\n");
+		printf("\nErro! A conta de N¬∫%d est√° 'encerrada'.\n", numero);
 		return 0;
 		}
 		
     if (valor <= 0) {
-		printf("Erro: valor deve ser positivo.\n");
+		printf("\nErro! Valor inv√°lido.\n");
 		return 0;
 		}
 		
     if (valor > contas[idx].saldo) {
-		printf("Erro: saldo insuficiente.\n");
+		printf("\nErro! O saldo da conta √© insuficiente.\n");
 		return 0;
 		}
     
     contas[idx].saldo -= valor;
     
-    printf("Saque realizado! Novo saldo: %.2f\n", contas[idx].saldo);
+    printf("Novo saldo: %.2f\n", contas[idx].saldo);
     
     return 1;
 }
@@ -78,42 +80,42 @@ int transferir(Conta contas[], int qtd, int origem, int destino, double valor) {
     int idxDestino = encontrar_conta_por_numero(contas, qtd, destino);
     
     if (idxOrigem == -1 && idxDestino == -1) {
-    	printf("Erro: Conta de origem e destino n„o encontradas.\n");
+    	printf("\nErro! Conta de 'origem' e 'destino' n√£o encontradas.\n");
     	return 0;
 	}
     
     if (idxOrigem == -1) {
-		printf("Erro: Conta de origem n„o encontrada.\n");
+		printf("\nErro! Conta de 'origem' n√£o encontrada.\n");
 		return 0;
 		}
 		
 	if (idxDestino == -1) {
-		printf("Erro: Conta de destino n„o encontrada.\n");
+		printf("\nErro! Conta de 'destino' n√£o encontrada.\n");
 		return 0;
 	}
 	
 	if (contas[idxOrigem].status == ENCERRADA && contas[idxDestino].status == ENCERRADA) {
-		printf("Erro: Conta de origem e destino est„o encerradas.\n");
+		printf("\nErro! Conta de 'origem' e 'destino' est√£o encerradas.\n");
 		return 0;
 	}
     
     if (contas[idxOrigem].status == ENCERRADA) {
-		printf("Erro: Conta de origem est· encerrada.\n");
+		printf("\nErro! Conta de 'origem' est√° encerrada.\n");
 		return 0;
 		}
 		
 	if (contas[idxDestino].status == ENCERRADA) {
-		printf("Erro: Conta de destino est· encerrada.\n");
+		printf("\nErro! Conta de 'destino' est√° encerrada.\n");
 		return 0;
 	}
 		
     if (valor <= 0) {
-		printf("Erro: valor inv·lido.\n");
+		printf("\nErro! Valor inv√°lido.\n");
 		return 0;
 		}
 		
     if (valor > contas[idxOrigem].saldo) {
-		printf("Erro: saldo insuficiente.\n");
+		printf("\nErro! O saldo da conta de 'origem' √© insuficiente para realizar a transfer√™ncia.\n");
 		return 0;
 		}
     
